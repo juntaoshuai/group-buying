@@ -13,45 +13,79 @@
 <body>
 <div class="top">
 <iframe src="http://www.smartlifein.com/index.php?m=member&amp;c=index&amp;a=mini&amp;q=" id="topifr" frameborder="0" width="100%" scrolling="no" height="29"></iframe>
-    <!--登录窗口-->
-    <div id="top-login-box" class="top-login-box">
-        <span class="login_close">X</span>
-        <p class="tips cf00 ml10 mb10" style="text-align:right;"></p>
-        <form class="" method="post" action="http://www.smartlifein.com/index.php?m=member&amp;c=index&amp;a=login" name="myform" id="myform">
-            <strong style="font-size:14px;">登录智慧生活网</strong>
-            <p class="pt10"><input type="text" class="txt mb12" name="username" value=""></p>
-            <p class="pt10"><input type="password" class="txt mb10" name="password" value=""></p>
-            <input id="forward" type="hidden" value="http://www.smartlifein.com/" name="forward">
-            <input id="dosubmit" type="hidden" value="登录" name="dosubmit">
-            <p class="mb12 font12">没有账号？&nbsp;<a href="http://www.smartlifein.com/register.html" style="margin-right:34px;">快速注册</a><a href="http://www.smartlifein.com/index.php?m=member&amp;c=index&amp;a=public_forget_password">忘记密码？</a></p>
-            <p class="mb10"><input type="submit" class="login-btn" value="登录" style="width:210px;"></p>
-        </form>
-    </div>
-    <!--登录窗口-->
 </div>
 <div class="header">
-    <div class="header-left fl">
-        <div class="logo fl"><img src="http://www.smartlifein.com/statics/images/logo_03.jpg"></div>
-        <h1 class="fl">团购</h1>
-    </div>
-    <div class="header-right fr">
-        <ul class="shopping-service">
-            <li class="s1">
-                <h3>行货保证</h3>
-                <p>所售商品为正品行货</p>
-            </li>
-            <li class="s2">
-                <h3>如实描述</h3>
-                <p>卖家对商品描述负责</p>
+    <div class="wrapper">
+        <div class="header-left fl">
+            <div class="logo fl"><img src="http://www.smartlifein.com/statics/images/logo_03.jpg"></div>
+            <h2 class="fl">团购</h2>
+        </div>
+        <div class="header-right fr">
+            <ul class="shopping-service">
+                <li class="s1">
+                    <h3>行货保证</h3>
+                    <p>所售商品为正品行货</p>
+                </li>
+                <li class="s2">
+                    <h3>如实描述</h3>
+                    <p>卖家对商品描述负责</p>
 
-            </li>
-            <li class="s3">
-                <h3>无忧退换</h3>
-                <p>7天可退，15天可换</p>
-            </li>
-        </ul>
+                </li>
+                <li class="s3">
+                    <h3>无忧退换</h3>
+                    <p>7天可退，15天可换</p>
+                </li>
+            </ul>
+        </div>
     </div>
-
+</div>
+<div id="main">
+    <div class="wrapper">
+        <div class="product-intro mt35">
+            <div class="product-hd clearfix">
+                <h1 class="fl">Apple MacBook Pro 15.4英寸笔记本电脑</h1>
+                <p class="fr">由<strong class="fb">佳能笔记本真品厂商</strong>提供</p>
+            </div>
+            <div class="preview fl">
+                <img src="https://img11.360buyimg.com/n1/jfs/t2518/52/10378951/105842/413f9b3d/5631d2b6N8fa76f15.jpg" alt="">
+            </div>
+            <div class="choose-wrap pt15 fr">
+                <dl class="choose-version">
+                    <dt>选择版本：</dt>
+                    <dd>
+                        <a href="javascript:;" class="item selected">13.3英寸</a>
+                        <a href="javascript:;" class="item">15.4英寸</a>
+                    </dd>
+                </dl>
+                <dl class="choose-spec">
+                    <dt>选择配置：</dt>
+                    <dd>
+                        <a href="javascript:;" class="item selected">双核i5/8G内存/128G闪存</a>
+                        <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
+                        <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
+                        <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
+                        
+                    </dd>
+                </dl>
+                <dl class="choose-btns mt20">
+                    <dt>数量：</dt>
+                    <dd>
+                        <div class="choose-amount">
+                            <div class="wrap-input">
+                                <a class="btn-reduce disabled" href="#none">-</a>
+                                <a class="btn-add" href="#none" onclick="setAmount.add('#buy-num')" data-disabled="1">+</a>
+                                <input class="text" id="buy-num" value="1" onkeyup="setAmount.modify('#buy-num');">
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="product-price">
+                    <dt>价格：</dt>
+                    <dd><p class="price" id="price">￥13188.00 </p></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
     
 
