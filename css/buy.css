@@ -83,6 +83,9 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 .choose-wrap dd{
 	width:498px;
 }
+.choose-wrap a{
+	text-decoration: none;
+}
 .choose-wrap dd .item{
 	float: left;
 	border:1px solid #ccc;
@@ -91,7 +94,6 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 	color:#666;
 }
 .choose-wrap dd .item:hover{
-	text-decoration: none;
 	color:#e4393c;
 	border:2px solid #e4393c;
 	padding:5px 7px;
