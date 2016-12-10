@@ -61,6 +61,10 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 	color:#999;
 	line-height: 56px;
 }
+
+.preview img{width:350px;}
+
+
 .choose-wrap{
 	width:600px;
 	border-top: 1px dashed #e0e0e0;
@@ -209,4 +213,185 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 
 #choose-color .dt {
     margin-top: 10px
+}
+
+.form-title {
+    font: 18px/36px microsoft Yahei;
+    color: #333;
+}
+.form-title span{
+    font:12px/12px simsun;
+    color:#666;
+}
+
+.form-group {
+    margin: 18px 0;
+    line-height: 28px;
+    vertical-align: top;
+}
+
+.form-group.mb10 {
+    margin-bottom: 10px;
+}
+
+.control-label,
+.form-control {
+    float: left;
+    display: inline;
+}
+.form-control{
+    position: relative;
+}
+
+.xin {
+    color: #ca0000;
+    font-size: 14px;
+    margin-right: 6px;
+    font-weight: normal;
+    font-style:normal;
+}
+
+.control-label {
+    font-size: 12px;
+    line-height: 28px;
+    color: #666;
+    width: 100px;
+    text-align: right;
+    margin-right: 12px;
+}
+
+.txt {
+    width: 212px;
+    height: 28px;
+    line-height: 28px\9;
+    font-size: 12px;
+    padding:0 8px;
+    float: left;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+    color: #666;
+    outline: none;
+}
+
+.txt23,
+.txt23 {
+    width: 23px;
+}
+
+.txt38,
+.txt38 {
+    width: 38px;
+}
+
+.txt88,
+.txt88 {
+    width: 88px;
+}
+
+.txt98,
+.txt98 {
+    width: 98px;
+}
+
+.txt118,
+.txt118 {
+    width: 118px;
+}
+
+.txt128,
+.txt128 {
+    width: 118px;
+}
+
+
+.txt160 {
+    width: 160px;
+}
+.txt162 {
+    width: 162px;
+}
+
+.txt198,
+.txt198 {
+    width: 198px;
+}
+
+.txt398,
+.txt398 {
+    width: 398px;
+}
+
+.txt438,
+.txt438 {
+    width: 438px;
+}
+
+.txt448,
+.txt448 {
+    width: 448px;
+}
+
+.btn-red {
+    display: inline-block;
+    width: 290px;
+    padding: 8px 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    background: #ca0000;
+    color: #fff;
+}
+
+.form-section{
+    border-top: 1px solid #dfdfdf;
+}
+
+.getcode{
+    width:102px;
+    height: 30px;
+    background: #929292;
+    font-size: 12px;
+    color:#fff;
+    outline: none;
+    line-height: 30px;
+    text-align: center;
+    border:none;
+}
+
+.form-group .radio{
+    float: left;
+    border:1px solid #ccc;
+    line-height:12px;
+    height: 26px;
+    line-height: 26px;
+    width:62px;
+    margin-right: 10px;
+    color:#666;
+    text-align: center;
+    cursor:pointer;
+}
+.form-group .radio.selected{
+    height: 24px;
+    line-height: 24px;
+    border:2px solid #e4393c;
+    color:#e4393c;
+    background: url(../images/ico_selected.png) right bottom no-repeat;
+}
+.paytype .radio{width:90px;height: 30px;line-height: 30px;}
+.paytype .radio.selected{
+    height: 28px;
+    line-height: 28px;
 }
