@@ -1,6 +1,11 @@
 @charset "UTF-8";
-body{font-family: simsun;color:#666;font-size: 12px;}
+body{font-family: simsun;color:#666;font-size: 12px;background: #fff;}
+.c999{color:#999;}
+.c666{color:#666;}
+.lh12{line-height: 12px;}
+.mt23{margin-top: 23px;}
 .wrapper{width:1000px;margin-left: auto;margin-right: auto;}
+
 .header{
 	height: 72px;
 	border-bottom: 1px solid #ccc;
@@ -61,7 +66,9 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 	color:#999;
 	line-height: 56px;
 }
-
+.product-hd p strong{
+    color:#666;
+}
 .preview img{width:350px;}
 
 
@@ -113,7 +120,7 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 .choose-wrap .product-price dt{
 	line-height: 46px;
 }
-.choose-wrap .price{
+.price{
 	font:bold 18px/46px microsoft Yahei;
 	color:#e4393c;
 }
@@ -154,7 +161,8 @@ body{font-family: simsun;color:#666;font-size: 12px;}
     left: 0;
     border: none;
     border: 0;
-    text-align: center
+    text-align: center;
+    background: #fff;
 }
 
 .choose-amount a.btn-reduce {
@@ -216,7 +224,8 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 }
 
 .form-title {
-    font: 18px/36px microsoft Yahei;
+    font:bold 14px/20px microsoft Yahei;
+    padding-top: 23px;
     color: #333;
 }
 .form-title span{
@@ -225,7 +234,7 @@ body{font-family: simsun;color:#666;font-size: 12px;}
 }
 
 .form-group {
-    margin: 18px 0;
+    margin: 20px 0;
     line-height: 28px;
     vertical-align: top;
 }
@@ -331,14 +340,33 @@ body{font-family: simsun;color:#666;font-size: 12px;}
     width: 448px;
 }
 
-.btn-red {
+.txt.h111{
+    height: 111px;
+}
+.form-control textarea{
+    width: 328px;
+    height:97px;
+    line-height:16px;
+    font-size: 12px;
+    float: left;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+    color: #666;
+    outline: none;
+    resize: none;
+    line-height: 16px;
+    padding:7px 6px;
+}
+.form-control textarea.h68{
+    height: 68px;
+}
+
+.btn-red,.btn-grey {
     display: inline-block;
-    width: 290px;
-    padding: 8px 0;
+    width: 200px;
     margin-bottom: 0;
-    font-size: 16px;
     font-weight: 400;
-    line-height: 1.42857143;
+    line-height:36px;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -351,11 +379,15 @@ body{font-family: simsun;color:#666;font-size: 12px;}
     user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    background: #ca0000;
+    background: #e4393c;
     color: #fff;
+    font-size: 16px;
+    font-family: Microsoft Yahei;
 }
-
-.form-section{
+.btn-grey{
+    background: #c7c7c7;
+}
+.form-section,.btline{
     border-top: 1px solid #dfdfdf;
 }
 
@@ -369,9 +401,10 @@ body{font-family: simsun;color:#666;font-size: 12px;}
     line-height: 30px;
     text-align: center;
     border:none;
+    float: left;
 }
 
-.form-group .radio{
+.u-radio{
     float: left;
     border:1px solid #ccc;
     line-height:12px;
@@ -383,15 +416,263 @@ body{font-family: simsun;color:#666;font-size: 12px;}
     text-align: center;
     cursor:pointer;
 }
-.form-group .radio.selected{
+.u-radio.selected{
     height: 24px;
     line-height: 24px;
     border:2px solid #e4393c;
     color:#e4393c;
     background: url(../images/ico_selected.png) right bottom no-repeat;
 }
-.paytype .radio{width:90px;height: 30px;line-height: 30px;}
-.paytype .radio.selected{
+.paytype{overflow: hidden;}
+.paytype .u-radio{width:90px;height: 30px;line-height: 30px;}
+.paytype .u-radio.selected{
     height: 28px;
     line-height: 28px;
 }
+
+.invoice{
+    margin-left: 112px;
+}
+.invoice .control-label{
+    margin-left: 0;
+    width:auto;
+}
+
+.invoice-con h3{
+    font:bold 14px/32px microsoft Yahei;
+    width:300px;
+    color:#666;
+    border-bottom: 1px solid #dcdcdc;
+}
+.invoice-con h4{
+    font:14px/34px microsoft Yahei;
+    color:#666;
+    margin-top: 7px;
+}
+
+.invoice-type label{
+    display: block;
+    line-height: 29px;
+}
+.invoice-type input,.invoice-type span{
+    display: inline-block;
+    vertical-align: middle;
+    color:#999;
+}
+.invoice-type input{
+    margin-right: 8px;
+}
+
+.btn-box{
+    padding-bottom: 61px;
+}
+
+
+
+/*footer*/
+/*footer底部*/
+.footer{ border-top:1px #ccc solid; border-bottom: 1px #ccc solid; padding: 10px 0px; background:#F1F1F1;}
+.foot{width:1000px; margin:0 auto; overflow: hidden;}
+.foot ul{ list-style: none;}
+.foot ul li{ float: left; padding: 10px;}
+.foot ul li p{ line-height: 30px;}
+.blue_color a{color:#005fad !important;}
+.blue_color a:hover{ text-decoration: underline;}
+.foot ul li p a{text-align: center; margin: 0px 3px;font:14px/24px "宋体";color: #333333; }
+.foot ul li p a:hover{color: #cc0000;}
+.foot ul li p span{ margin:0px 10px;font:14px/30px "宋体";color: #333333;}
+.app-more{ position: absolute; right: 0px; top:0px; display:block;width:45px; height:36px;font:12px/36px "宋体"; color: #999999 !important; background:url("../images/app_more_19.jpg") 25px center no-repeat;}
+.g-footer-record{text-align:center; height:36px; line-height:36px; margin-bottom: 15px;background: #F1F1F1;border-top: 1px solid #ccc;font-family: arial,"Hiragino Sans GB","Microsoft YaHei","simsun";padding-top: 15px;}
+.g-footer-record  a{color:#333;}
+
+/*支付成功失败页面*/
+.payment-content{padding:130px 0 130px 244px;overflow: hidden;}
+.payment-content h2{
+    font:22px/33px Microsoft Yahei;
+    color:#333;
+    background: url(../images/ico_service.png) 0 0 no-repeat;
+    display:inline-block;
+    padding-left: 48px;
+    margin-bottom: 3px;
+}
+.payment-content .success{
+    background-position: 0 -114px;
+}
+.payment-content .fail{
+    background-position: 0 -147px;
+}
+.payment-content p{
+    line-height: 23px;
+    padding-left: 50px;
+    text-align: left;
+
+}
+
+/*订单确认*/
+.u-title{
+    font:bold 14px/14px microsoft Yahei;
+    color:#333;
+
+}
+
+.order-info .u-title{
+    font-size: 16px;
+}
+.order-info .order-option{
+    line-height: 28px;
+}
+.order-info .price-num{
+    line-height: 34px;
+    margin-top: 12px;
+}
+.order-info .price{
+    line-height:18px;
+}
+.receiver-info,.order-pay{
+    padding-left: 21px;
+}
+.receiver-info{
+    padding-top: 26px;
+}
+
+.receiver-info p{
+    font-size: 12px;
+    line-height: 38px;
+    color:#999;
+}
+.receiver-info p span{
+    color:#666;
+}
+.order-pay h3{
+    line-height: 28px;
+    margin-right: 10px;
+}
+
+/*查询详情*/
+.grey-bg{
+    background: #f5f5f5;
+}
+.white-box{
+    background: #fff;
+
+}
+.query-hd{
+    height: 59px;
+    line-height: 59px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+.query-hd span{
+    color:#e4393c;
+}
+
+.query-detail{
+    padding:21px 26px 0 20px;
+}
+
+.order-name li{
+    float: left;
+    font-size: 12px;
+    line-height: 13px;
+    border-right: 1px solid #dcdcdc;
+    padding:0 23px 0 20px;
+    color:#333;
+    text-align: center;
+}
+.order-name li.noborder{
+    border-right:none;
+}
+.order-name li a{color:#333;display:block;padding-bottom: 2px;}
+.order-name li a:hover{text-decoration: none;}
+.order-name li.active{
+    font-weight: bold;
+    color:#e4393c;
+}
+.order-name li.active a{
+    color:#e4393c;
+    border-bottom: 2px solid #e4393c;
+}
+
+.detail-hd{
+    background: #f5f5f5;
+    height: 32px;
+    line-height: 32px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+.express-con{
+    padding:22px 0 23px 21px;
+}
+.express-con p{
+    line-height: 20px;
+}
+.order-detail .receiver-info{
+    padding-top: 6px;
+}
+.buy-time{line-height: 45px;}
+.query-order{
+    width: 528px;
+    margin:0 auto;
+}
+
+.query-order .qo-hd{
+    background: #eee;
+    height: 49px;
+    line-height: 49px;
+    padding:0 27px;
+}
+.query-order .qo-hd h2{
+    font:18px/49px Microsoft Yahei;
+    color:#000;
+}
+.query-order .qo-hd .hot-line{
+    font-size: 14px;
+}
+.query-order .qo-hd i{
+    display: inline-block;
+    background: url(../images/ico_service.png) 0 -180px no-repeat;
+    width:18px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+
+}
+.qo-bd{
+    border:1px solid #dcdcdc;
+    border-top: none;
+    font-size: 14px;
+    padding:0 0 66px 27px;
+}
+.qo-bd .qo-tips{
+    line-height: 48px;
+    padding-top: 16px;
+}
+.qo-bd label{
+    line-height: 38px;
+}
+.qo-bd .txt{
+    width:375px;
+    height: 30px; 
+    line-height: 30px\9;
+    margin-right: 11px;
+}
+.qo-bd .txt:focus{
+    border-color:#e4393c;
+}
+.qo-bd .query-btn{
+    width:66px;
+    height: 30px;
+    background: #fff;
+    border:1px solid #dcdcdc;
+    float: left;
+    box-shadow: 2px 2px 0 #bbb;
+    font-size: 14px;
+    color:#333;
+}
+
+.qo-bd .query-btn:hover{
+    background: #eee;
+}
+
+.nopass{color:#e4393c;margin-left: 10px;float: left;}
+.mobile-form-control .nopass{margin-top: 10px;}
