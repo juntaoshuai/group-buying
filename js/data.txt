@@ -1,0 +1,3 @@
+1
+
+http://192.168.23.1:8080/group-buying/?username=tao&telphone=13025458496&address=sz&mobile=13025458496&validate_code=1324&invoice=&intype=%E6%98%8E%E7%BB%86&uremark=no&paytype=1

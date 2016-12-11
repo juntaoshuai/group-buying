@@ -71,9 +71,9 @@
                         <dd>
                             <div class="choose-amount">
                                 <div class="wrap-input">
-                                    <a class="btn-reduce disabled" href="#none">-</a>
-                                    <a class="btn-add" href="#none" onclick="setAmount.add('#buy-num')" data-disabled="1">+</a>
-                                    <input class="text" id="buy-num" value="1" onkeyup="setAmount.modify('#buy-num');">
+                                    <a class="btn-reduce" href="#none">-</a>
+                                    <a class="btn-add" href="#none" data-disabled="1">+</a>
+                                    <input class="text" id="buy-num" value="1">
                                 </div>
                             </div>
                         </dd>
@@ -112,11 +112,11 @@
                         <label class="control-label">快捷下单验证：</label>
                         <div class="form-control">
                             <div class="clearfix">
-                                <input type="text" name="mobile" placeholder="填写快捷下单所需验证的手机号" class="txt mr10">
-                                <input type="button" class="getcode" value="获取验证码" disabled="disabled">
+                                <input type="text" name="mobile" id="mobile" placeholder="填写快捷下单所需验证的手机号" class="txt mr10">
+                                <input type="button" class="getcode" value="获取验证码">
                             </div>
-                            <div class="mobile-form-control">
-                                <input type="text" name="mobile" placeholder="输入收到的短信验证码" class="txt mt10">
+                            <div class="mobile-form-control mt10">
+                                <input type="text" placeholder="输入收到的短信验证码" class="txt" name="validate_code" id="validate_code">
                             </div>
                         </div>
                     </div>
