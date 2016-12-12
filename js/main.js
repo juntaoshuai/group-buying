@@ -234,21 +234,36 @@ $(function() {
 (function(){
      var minNum = 1,
             maxNum = 999;
-        $("#buy-num").on('change keyup', function() {
+        $("#buy-num").on('change', function() {
+           var $this=$(this),
             $val = $(this).val();
-            if (isNaN($val) || $val.indexOf(".") >= 0) {
+            if (isNaN($val)) {
                 $(this).val(1);
                 return false;
             }
-            if ($val < minNum) {
-                $(this).val(minNum);
-            } else if ($val > maxNum) {
-                $(this).val(maxNum);
-            } else if ($val == 1) {
-                $(this).prev().removeClass("active");
+           /* if($val==""){
+               var timer= setTimeout(function(){
+                    if($val==""){
+                        alert("comeup")
+                        $this.val(1);
+                    }else{
+                        clearTimeout(timer);
+                        $this.val($val);
+                    }
+                },1000)
+            }*/
+            else{
+                $(this).val(Math.floor($val));
+            }
+            if ($val !=1) {
+                $(".btn-reduce").removeClass("disabled");
+            }
+            if($val==1){
+                $(".btn-reduce").addClass("disabled");
 
-            } else {
-                $(this).prev().addClass("active");
+            } 
+            if($val<1){
+                $(this).val(1);
 
             }
         });
@@ -259,6 +274,12 @@ $(function() {
             var $input = $("#buy-num"),
                 cur = $input.val();
             cur++;
+            if(cur>1){
+                $(".btn-reduce").removeClass("disabled");
+            }
+            if(cur==maxNum){
+                $(this).addClass("disabled");
+            }
             if (cur > maxNum) {
                 return;
             }
@@ -270,10 +291,17 @@ $(function() {
         $(".btn-reduce").on('click',function() {
             var $input = $("#buy-num"),
                 cur = $input.val();
+                if(cur==1){
+                    return;
+                }
             cur--;
             $input.val(cur);
             if (cur == 1) {
                 $(this).addClass("disabled");
+            }
+            if(cur!=maxNum){
+                $(".btn-add").removeClass("disabled");
+
             }
         });
 })();
