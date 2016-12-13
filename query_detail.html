@@ -126,6 +126,12 @@
     </div>
     <script type="text/javascript" src="http://www.smartlifein.com/statics/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+        var mobile=getUrlKey("mobile");
+        console.log(mobile);
+        $.getJSON('http://dev.smartlifein.com/index.php?m=order&c=index&a=ajax_search_order',{mobile:mobile},function(data){
+        });
+    </script>
 </body>
 
 </html>

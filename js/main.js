@@ -357,8 +357,9 @@ $(function() {
     });
     //订单查询提交
     $(".query-btn").click(function() {
+        var mobile=$("input[name=mobile]").val();
         window.opener = null;
-        window.open("query_detail.html", "_blank");
+        window.open("query_detail.html?mobile="+mobile, "_blank");
         window.close();
         $.getJSON('js/data.json',function(data){
             document.title=data.status;
@@ -371,3 +372,15 @@ $(function() {
 
 
 });
+
+
+//获取地址栏参数
+function getUrlKey(key) {
+    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r != null) {
+        return r[2];  //返回未解码的值
+    }else {
+        return null;
+    }
+}
