@@ -44,11 +44,14 @@ $info = $_POST;
     </div>
     <div id="main">
         <div class="wrapper">
+            <form action="" method="post" id="orderForm">
             <div class="order-info mt35">
                 <h2 class="u-title">产品信息</h2>
                 <div class="clearfix mt35">
                     <div class="order-img fl">
-                        <h3><img src="images/computer.png" alt=""></h3>
+                        <h3>
+                            <img src="<?php echo $info['propic'];?>" alt="">
+                        </h3>
                         <p class="c999 lh12 mt20">由<strong class="fb c666"><?php echo $info['company'];?></strong>提供</p>
                     </div>
                     <div class="order-summary fl ml40">
@@ -60,7 +63,6 @@ $info = $_POST;
                 </div>
             </div>
             <div class="receiver-info form-section mt45">
-
                 <h3 class="u-title">收货人信息</h3>
                 <p><span>收货人：</span><?php echo $info['username'];?></p>
                 <p><span>手机号：</span><?php echo $info['telphone'];?></p>
@@ -73,11 +75,29 @@ $info = $_POST;
                 <div class="paytype fl">
                     <span class="u-radio selected"><img src="images/alipay.png"></span>
                 </div>
+               
             </div>
             <div class="form-section tc pt25 mt40 btn-box">
+                <input type="hidden" name="proid" value="<?php echo $info['proid'];?>">
+                <input type="hidden" name="proname" value="<?php echo $info['proname'];?>">
+                <input type="hidden" name="propic" value="<?php echo $info['propic'];?>">
+                <input type="hidden" name="prourl" value="<?php echo $info['prourl'];?>">
+                <input type="hidden" name="company" value="<?php echo $info['company'];?>">
+                <input type="hidden" name="proformat" value="<?php echo $info['proformat'];?>">
+                <input type="hidden" name="proprice" value="<?php echo $info['proprice'];?>">
+                <input type="hidden" name="pronum" value="<?php echo $info['pronum'];?>">
+                <input type="hidden" name="username" value="<?php echo $info['username'];?>">
+                <input type="hidden" name="mobile" value="<?php echo $info['mobile'];?>">
+                <input type="hidden" name="telphone" value="<?php echo $info['telphone'];?>">
+                <input type="hidden" name="address" value="<?php echo $info['address'];?>">
+                <input type="hidden" name="invoice" value="<?php echo $info['invoice'];?>">
+                <input type="hidden" name="uremark" value="<?php echo $info['uremark'];?>">
+                <input type="hidden" name="paytype" value="<?php echo $info['paytype'];?>">
+                
                 <input type="button" value="确认支付" class="btn-red mr5">
                 <input type="button" value="修改订单" class="btn-grey" onclick="window.location.href='index.html'">
             </div>
+            </form>
        
         </div>
     </div>

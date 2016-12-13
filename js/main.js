@@ -1,6 +1,6 @@
 $(function() {
     //选中后样式变化
-    $("#main").on('click',".choose-wrap .item,.form-group .u-radio",function() {
+    $("#main").on('click', ".choose-wrap .item,.form-group .u-radio", function() {
         $(this).addClass("selected").siblings().removeClass("selected");
     });
 
@@ -130,6 +130,13 @@ $(function() {
                     } else {
                         remoteCheck($this, "js/data.txt", "验证码错误");
 
+                    }
+                }
+                if (name == "invoice_tt") {
+                    if (checkEmpty($this)) {
+                        noPass("请输入发票抬头", $this);
+                    } else {
+                        pass($this);
 
                     }
                 }
@@ -191,16 +198,16 @@ $(function() {
                 }
                 if ($(".error").length) {
                     return false;
-                }else{
+                } else {
                     $("input[name=proid]").val($(".product-hd h1").data("proid"));
                     $("input[name=proname]").val($(".product-hd h1").html());
-                    $("input[name=company]").val($(".product-hd p strong").html());//供应商
+                    $("input[name=company]").val($(".product-hd p strong").html()); //供应商
                     $("input[name=propic]").val($(".preview img").attr("src")); //图片url
                     $("input[name=prourl]").val(window.location.href); //地址栏url
-                    $("input[name=proformat]").val($(".choose-version .item.selected").html()+","+$(".choose-spec .item.selected").html());
+                    $("input[name=proformat]").val($(".choose-version .item.selected").html() + "," + $(".choose-spec .item.selected").html());
                     $("input[name=pronum]").val($("#buy-num").val());
                     $("input[name=proprice]").val($("#price").html()); //单价
-                    $("input[name=invoice]").val();
+                    $("input[name=invoice]").val($("#invoice_tt").val() + "," + $("input[name=intype]").val());
 
 
                     $("#buyForm").submit();
@@ -245,54 +252,42 @@ $(function() {
     valiate.buyForm();
     valiate.queryOrderForm();
 
-//数量操作
-(function(){
-     var minNum = 1,
+    //数量操作
+    (function() {
+        var minNum = 1,
             maxNum = 999;
-        $("#main").on('change','#buy-num', function() {
-           var $this=$(this),
-            $val = $(this).val();
+        $("#main").on('change', '#buy-num', function() {
+            var $this = $(this),
+                $val = $(this).val();
             if (isNaN($val)) {
                 $(this).val(1);
                 return false;
-            }
-           /* if($val==""){
-               var timer= setTimeout(function(){
-                    if($val==""){
-                        alert("comeup")
-                        $this.val(1);
-                    }else{
-                        clearTimeout(timer);
-                        $this.val($val);
-                    }
-                },1000)
-            }*/
-            else{
+            } else {
                 $(this).val(Math.floor($val));
             }
-            if ($val !=1) {
+            if ($val != 1) {
                 $(".btn-reduce").removeClass("disabled");
             }
-            if($val==1){
+            if ($val == 1) {
                 $(".btn-reduce").addClass("disabled");
 
-            } 
-            if($val<1){
+            }
+            if ($val < 1) {
                 $(this).val(1);
 
             }
         });
 
-        $("#main").on('click','.btn-add', function() {
+        $("#main").on('click', '.btn-add', function() {
             $(this).prev().prev().addClass("active");
 
             var $input = $("#buy-num"),
                 cur = $input.val();
             cur++;
-            if(cur>1){
+            if (cur > 1) {
                 $(".btn-reduce").removeClass("disabled");
             }
-            if(cur==maxNum){
+            if (cur == maxNum) {
                 $(this).addClass("disabled");
             }
             if (cur > maxNum) {
@@ -303,48 +298,75 @@ $(function() {
         });
 
 
-        $("#main").on('click','.btn-reduce',function() {
+        $("#main").on('click', '.btn-reduce', function() {
             var $input = $("#buy-num"),
                 cur = $input.val();
-                if(cur==1){
-                    return;
-                }
+            if (cur == 1) {
+                return;
+            }
             cur--;
             $input.val(cur);
             if (cur == 1) {
                 $(this).addClass("disabled");
             }
-            if(cur!=maxNum){
+            if (cur != maxNum) {
                 $(".btn-add").removeClass("disabled");
 
             }
         });
-})();
-//产品信息加载
-$.getJSON('js/data.json',function(data){
-    $("#main .wrapper").prepend($("#proTmpl").render(data));
-})
+    })();
 
-$("#main").on('click',".choose-wrap .item",function(){
-    if($(".choose-wrap .item.selected").length==2){
-        var vid=$(".choose-version .item.selected").data("id"),
-            sid=$(".choose-spec .item.selected").data("id");
-        $.getJSON("js/data.json",function(data){
-            $.each(data.lists,function(i){
-                if(data.lists[i].proid==1){
-                $.each(data.lists[i].price,function(){
-                    if(this.id==vid+"-"+sid){
-                        $("#price").html(this.val)
-                    }
-                });
+    $("#main").on('click', ".choose-wrap .item", function() {
+            if ($(".choose-wrap .item.selected").length == 2) {
+                var vid = $(".choose-version .item.selected").data("id"),
+                    sid = $(".choose-spec .item.selected").data("id");
+                $.getJSON("js/data.json", function(data) {
+                    $.each(data.lists, function(i) {
+                        if (data.lists[i].proid == 1) {
+                            $.each(data.lists[i].price, function() {
+                                if (this.id == vid + "-" + sid) {
+                                    $("#price").html(this.val)
+                                }
+                            });
 
-                }
-            });
+                        }
+                    });
+                })
+
+            }
         })
+        //订单提交
+    $("#orderForm .btn-red").click(function() {
+        var data = $("#orderForm").serialize();
+        $.ajax({
+            url: "http://dev.smartlifein.com/index.php?m=order&c=index&a=ajax_order",
+            // type:'POST',
+            data: data,
+            success: function(data) {
 
-    }
-})
+            }
+        });
+    });
+    //查询订单弹窗
+    $("#order-query").click(function() {
+        //获得窗口的垂直位置 
+        var iTop = ($(window).height() - 316) / 2;
+        //获得窗口的水平位置 
+        var iLeft = ($(window).width() - 543) / 2;
+        window.open('query_order.html', 'newwindow', 'width=530,height=280,left=' + iLeft + ',top=' + iTop + ',toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no');
+    });
+    //订单查询提交
+    $(".query-btn").click(function() {
+        window.opener = null;
+        window.open("query_detail.html", "_blank");
+        window.close();
+        $.getJSON('js/data.json',function(data){
+            document.title=data.status;
+        });
 
+
+
+    });
 
 
 

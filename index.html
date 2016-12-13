@@ -148,7 +148,7 @@
                     <div class="invoice dn">
                         <h3 class="invoice-title">发票抬头<span class="title-tips ml5">可输入个人/单位名称</span></h3>
                         <div class="clearfix mt5">
-                            <input type="text" class="txt" value="个人">
+                            <input type="text" class="txt" name="invoice_tt" id="invoice_tt" value="个人">
                         </div>
                         <div class="invoice-con">
                             <h3>发票内容</h3>
@@ -232,10 +232,21 @@
         <img src="http://www.smartlifein.com/statics/images/newindex/jc.gif" style="vertical-align:middle;">
     </div>
     </div>
+    <!--订单查询 start-->
+    <p id="order-query">订单查询</p>
+    <!--订单查询 end-->
+
 
     <script type="text/javascript" src="http://www.smartlifein.com/statics/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/jsrender.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+    //产品信息加载
+    $.getJSON('js/data.json',function(data){
+        $("#main .wrapper").prepend($("#proTmpl").render(data));
+    })
+
+    </script>
 </body>
 
 </html>

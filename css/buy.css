@@ -686,3 +686,19 @@ body{font-family: simsun;color:#666;font-size: 12px;background: #fff;}
 }
 
 .nopass{color:#e4393c;margin-left: 10px;float: left;}
+.invoice .nopass{line-height: 30px;}
+
+/*订单查询*/
+#order-query{
+    position: fixed;
+    background: #169bd5;
+    width:75px;
+    height: 20px;
+    right:0;
+    top:50%;
+    font:12px/20px microsoft Yahei;
+    color:#fff;
+    text-align: center;
+    cursor: pointer;
+
+}
