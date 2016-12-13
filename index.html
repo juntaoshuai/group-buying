@@ -41,29 +41,40 @@
     </div>
     <div id="main">
         <div class="wrapper">
+        <script type="text/x-jsrender" id="proTmpl">
+        {{for lists}}
+        {{if proid==1}}
             <div class="product-intro mt35 clearfix">
                 <div class="product-hd clearfix">
-                    <h1 class="fl">Apple MacBook Pro 15.4英寸笔记本电脑</h1>
-                    <p class="fr">由<strong class="fb">佳能笔记本真品厂商</strong>提供</p>
+                    <h1 class="fl" data-proid="{{:proid}}">{{:proname}}</h1>
+                    <p class="fr">由<strong class="fb">{{:company}}</strong>提供</p>
                 </div>
                 <div class="preview fl">
-                    <img src="https://img11.360buyimg.com/n1/jfs/t2518/52/10378951/105842/413f9b3d/5631d2b6N8fa76f15.jpg" alt="">
+                    <img src="{{:propic}}" alt="">
                 </div>
                 <div class="choose-wrap pt15 fr">
                     <dl class="choose-version">
                         <dt>选择版本：</dt>
                         <dd>
-                            <a href="javascript:;" class="item selected">13.3英寸</a>
-                            <a href="javascript:;" class="item">15.4英寸</a>
+                        {{for proformat}}
+                            {{if id==1}}
+                            <a href="javascript:;" class="item selected" data-id="{{:id}}">{{:val}}</a>
+                            {{else}}
+                            <a href="javascript:;" class="item" data-id="{{:id}}">{{:val}}</a>
+                            {{/if}}
+                        {{/for}}
                         </dd>
                     </dl>
                     <dl class="choose-spec">
                         <dt>选择配置：</dt>
                         <dd>
-                            <a href="javascript:;" class="item selected">双核i5/8G内存/128G闪存</a>
-                            <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
-                            <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
-                            <a href="javascript:;" class="item">双核i5/8G内存/128G闪存</a>
+                        {{for configuration}}
+                            {{if id==1}}
+                            <a href="javascript:;" class="item selected" data-id="{{:id}}">{{:val}}</a>
+                            {{else}}
+                            <a href="javascript:;" class="item" data-id="{{:id}}">{{:val}}</a>
+                            {{/if}}
+                        {{/for}}
                         </dd>
                     </dl>
                     <dl class="choose-btns mt20">
@@ -81,13 +92,20 @@
                     <dl class="product-price">
                         <dt>价格：</dt>
                         <dd>
-                            <p class="price" id="price">￥13188.00 </p>
+                            {{for price}}
+                            {{if id=="1-1"}}
+                                <p class="price">￥<span id="price">{{:val}}</span></p>
+                            {{/if}}
+                            {{/for}}
                         </dd>
                     </dl>
                 </div>
             </div>
+            {{/if}}
+            {{/for}}
+        </script>
             <!--收货人信息-->
-            <form action="" method="get" id="buyForm">
+            <form action="order.php" method="post" id="buyForm">
                 <div class="form-section">
                     <h3 class="form-title">收货人信息</h3>
                     <div class="form-group clearfix">
@@ -128,15 +146,9 @@
                         </div>
                     </div>
                     <div class="invoice dn">
-                        <div class="form-group clearfix">
-                            <label class="control-label">发票抬头：</label>
-                            <div class="form-control">
-                                <div class="clearfix">
-                                    <input type="text" class="txt" value="个人">
-                                </div>
-                                <input type="text" class="txt mt10" placeholder="请填写公司发票抬头">
-                            </div>
-                            <input type="hidden" name="invoice">
+                        <h3 class="invoice-title">发票抬头<span class="title-tips ml5">可输入个人/单位名称</span></h3>
+                        <div class="clearfix mt5">
+                            <input type="text" class="txt" value="个人">
                         </div>
                         <div class="invoice-con">
                             <h3>发票内容</h3>
@@ -156,6 +168,7 @@
                                 </label>
                             </div>
                         </div>
+                         <input type="hidden" name="invoice">
                     </div>
                     <div class="form-group clearfix">
                         <label class="control-label">添加备注：</label>
@@ -175,7 +188,15 @@
                     </div>
                 </div>
                 <div class="form-section tc btn-box">
-                    <input type="submit" value="提交订单" class="btn-red mt25">
+                    <input type="hidden" name="proid">
+                    <input type="hidden" name="proname">
+                    <input type="hidden" name="company">
+                    <input type="hidden" name="propic">
+                    <input type="hidden" name="prourl">
+                    <input type="hidden" name="proformat">
+                    <input type="hidden" name="pronum">
+                    <input type="hidden" name="proprice">
+                    <input type="button" value="提交订单" class="btn-red mt25">
                 </div>
             </form>
         </div>
@@ -213,6 +234,7 @@
     </div>
 
     <script type="text/javascript" src="http://www.smartlifein.com/statics/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="js/jsrender.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </body>
 

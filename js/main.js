@@ -1,6 +1,6 @@
 $(function() {
     //选中后样式变化
-    $(".choose-wrap .item,.form-group .u-radio").click(function() {
+    $("#main").on('click',".choose-wrap .item,.form-group .u-radio",function() {
         $(this).addClass("selected").siblings().removeClass("selected");
     });
 
@@ -191,6 +191,21 @@ $(function() {
                 }
                 if ($(".error").length) {
                     return false;
+                }else{
+                    $("input[name=proid]").val($(".product-hd h1").data("proid"));
+                    $("input[name=proname]").val($(".product-hd h1").html());
+                    $("input[name=company]").val($(".product-hd p strong").html());//供应商
+                    $("input[name=propic]").val($(".preview img").attr("src")); //图片url
+                    $("input[name=prourl]").val(window.location.href); //地址栏url
+                    $("input[name=proformat]").val($(".choose-version .item.selected").html()+","+$(".choose-spec .item.selected").html());
+                    $("input[name=pronum]").val($("#buy-num").val());
+                    $("input[name=proprice]").val($("#price").html()); //单价
+                    $("input[name=invoice]").val();
+
+
+                    $("#buyForm").submit();
+
+
                 }
             });
         },
@@ -234,7 +249,7 @@ $(function() {
 (function(){
      var minNum = 1,
             maxNum = 999;
-        $("#buy-num").on('change', function() {
+        $("#main").on('change','#buy-num', function() {
            var $this=$(this),
             $val = $(this).val();
             if (isNaN($val)) {
@@ -268,7 +283,7 @@ $(function() {
             }
         });
 
-        $(".btn-add").on('click', function() {
+        $("#main").on('click','.btn-add', function() {
             $(this).prev().prev().addClass("active");
 
             var $input = $("#buy-num"),
@@ -288,7 +303,7 @@ $(function() {
         });
 
 
-        $(".btn-reduce").on('click',function() {
+        $("#main").on('click','.btn-reduce',function() {
             var $input = $("#buy-num"),
                 cur = $input.val();
                 if(cur==1){
@@ -305,9 +320,30 @@ $(function() {
             }
         });
 })();
+//产品信息加载
+$.getJSON('js/data.json',function(data){
+    $("#main .wrapper").prepend($("#proTmpl").render(data));
+})
 
+$("#main").on('click',".choose-wrap .item",function(){
+    if($(".choose-wrap .item.selected").length==2){
+        var vid=$(".choose-version .item.selected").data("id"),
+            sid=$(".choose-spec .item.selected").data("id");
+        $.getJSON("js/data.json",function(data){
+            $.each(data.lists,function(i){
+                if(data.lists[i].proid==1){
+                $.each(data.lists[i].price,function(){
+                    if(this.id==vid+"-"+sid){
+                        $("#price").html(this.val)
+                    }
+                });
 
+                }
+            });
+        })
 
+    }
+})
 
 
 

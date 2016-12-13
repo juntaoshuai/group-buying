@@ -230,9 +230,18 @@ body{font-family: simsun;color:#666;font-size: 12px;background: #fff;}
     padding-top: 23px;
     color: #333;
 }
-.form-title span{
+.form-title span,.invoice-title span{
     font:12px/12px simsun;
     color:#666;
+}
+.invoice-title{
+      font:bold 14px/20px microsoft Yahei;
+      color:#333;    
+}
+
+
+.form-title .title-tips{
+    color:#999;
 }
 
 .form-group {
