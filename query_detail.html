@@ -43,52 +43,72 @@
         <div class="grey-bg pt20 pb50">
             <div class="wrapper">
                 <div class="white-box">
-                    <p class="query-hd"><span>15818552800</span> 的订单：</p>
+                    <p class="query-hd"><span id="orderMobile"></span> 的订单：</p>
                 </div>
                 <div class="white-box mt20">
-                    <div class="query-detail">
-                        <ul class="order-name clearfix">
-                            <li class="active"><a href="#">小米笔记本Air</a></li>
-                            <li><a href="#">小米4手机</a></li>
-                            <li class="noborder"><a href="#">小米4手机</a></li>
-                        </ul>
-                        <div class="order-detail mt15">
-                            <div class="detail-hd">订单详情</div>
-                            <div class="express-con">
-                                <p>物流信息：已经发货，快件到达广州，预计明日送达</p>
-                                <p>
-                                    承运快递：<span id="express">顺丰快递</span> ， 快递单号：
-                                    <span id="expressNo">1235469874521</span><span class="c999">（刚下单或是没有发货的时候不显示）</span>
-                                </p>
-                            </div>
-                            <div class="receiver-info btline">
-                                <p><span>收货人：</span>赵侠</p>
-                                <p><span>手机号：</span>15242314562</p>
-                                <p><span>收货地址：</span>山西朔州市应县同乐小区</p>
-                                <p><span>发票：</span>不需要</p>
-                                <p><span>备注：</span>尽快发货</p>
-                            </div>
-                            <div class="order-info">
-                                <div class="clearfix btline pt30 pb30">
-                                    <div class="pl20">
-                                        <div class="order-img fl">
-                                            <h3><img src="images/computer.png" alt=""></h3>
-                                            <p class="c999 lh12 mt20">由<strong class="fb c666">佳能笔记本真品厂商</strong>提供</p>
-                                        </div>
-                                        <div class="order-summary fl ml40">
-                                            <h3 class="u-title">小米笔记本Air</h3>
-                                            <p class="f14 order-option">12.5英寸集成显卡 ，银色</p>
-                                            <p class="f14 price-num">3499元X1</p>
-                                            <p class="price">￥13188.00 </p>
+                        <div class="query-detail">
+                            <ul class="order-name clearfix">
+                                  
+                            </ul>
+                            <div id="orderDetailBox">
+                            <script type="text/x-jsrender" id="orderDetailTempl">
+                            {{for data}}
+                            {{if #getIndex()==0}}
+                            <div class="order-detail mt15 db">
+                            {{else}}
+                            <div class="order-detail mt15 dn">
+                            {{/if}}
+                                <div class="detail-hd">订单详情</div>
+                                <div class="express-con">
+                                    {{if logistics=="" && lgcompay=="" && lgcode==""}}
+                                    <p>暂无物流信息</p>
+                                    {{else logistics=="" && lgcompay!="" && lgcode!=""}}
+                                    <p>暂无物流信息</p>
+                                    <p>
+                                        承运快递：<span id="express">{{:lgcompay}}</span> ， 快递单号：
+                                        <span id="expressNo">{{:lgcode}}</span></span>
+                                   </p>
+                                    {{else}}
+                                    <p>物流信息：{{:logistics}}</p>
+                                    <p>
+                                        承运快递：<span id="express">{{:lgcompay}}</span> ， 快递单号：
+                                        <span id="expressNo">{{:lgcode}}</span></span>
+                                   </p>
+                                   {{/if}}
+                                </div>
+                                <div class="receiver-info btline">
+                                    <p><span>收货人：</span>{{:username}}</p>
+                                    <p><span>手机号：</span>{{:telephone}}</p>
+                                    <p><span>收货地址：</span>{{:address}}</p>
+                                    <p><span>发票：</span>{{:invoice}}</p>
+                                    <p><span>备注：</span>{{:remark}}</p>
+                                </div>
+                                <div class="order-info">
+                                    <div class="clearfix btline pt30 pb30">
+                                        <div class="pl20">
+                                            <div class="order-img fl">
+                                            <h3><img src='{{:propic}}' alt=""></h3>
+
+                                                <p class="c999 lh12 mt20">由
+                                                <strong class="fb c666">
+                                                {{:company}}</strong>提供</p>
+                                            </div>
+                                            <div class="order-summary fl ml40">
+                                                <h3 class="u-title">{{:proname}}</h3>
+                                                <p class="f14 order-option">{{:proformat}}</p>
+                                                <p class="f14 price-num">{{:proprice}}元X{{:pronum}}</p>
+                                                <p class="price">￥{{:proprice}} </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <p class="buy-time btline">成交时间：{{:addtime}}</p>
                             </div>
-                            <p class="buy-time btline">成交时间：2016-08-01 12:16:30</p>
+                            {{/for}}
+                             </script>
+                             </div>
                         </div>
-                        <div class="order-detail"></div>
-                        <div class="order-detail"></div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -125,12 +145,28 @@
         </div>
     </div>
     <script type="text/javascript" src="http://www.smartlifein.com/statics/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="js/jsrender.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript">
-        var mobile=getUrlKey("mobile");
-        console.log(mobile);
-        $.getJSON('http://dev.smartlifein.com/index.php?m=order&c=index&a=ajax_search_order',{mobile:mobile},function(data){
+    var mobile = getUrlKey("mobile");
+
+    $.post('/index.php?m=order&c=index&a=ajax_search_order', {
+        mobile: mobile
+    }, function(data) {
+        var html="";
+        $("#orderMobile").html(data.data[0].mobile);
+        $.each(data.data,function(){
+            html+='<li><a href="javascript:;">'+this.proname+'</a></li>'
         });
+
+        $(".order-name").html(html).find("li:first").addClass("active").end().find("li:last").addClass("noborder");
+
+        $("#orderDetailBox").html($("#orderDetailTempl").render(data));
+
+
+
+
+    });
     </script>
 </body>
 

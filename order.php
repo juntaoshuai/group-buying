@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $info = $_POST;
 ?>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ $info = $_POST;
                         <h3 class="u-title"><?php echo $info['proname'];?></h3>
                         <p class="f14 order-option"><?php echo $info['proformat'];?></p>
                         <p class="f14 price-num"><?php echo $info['proprice'];?>元X<?php echo $info['pronum'];?></p>
-                        <p class="price">￥<?php echo $info['proprice'];?> </p>
+                        <p class="price">￥<?php echo $info['proprice']*$info['pronum'];?> </p>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,15 @@ $info = $_POST;
             <div class="order-pay form-section clearfix pt30">
                 <h3 class="u-title fl">支付方式</h3>
                 <div class="paytype fl">
-                    <span class="u-radio selected"><img src="images/alipay.png"></span>
+                    <span class="u-radio selected">
+                    <?php if($info['paytype'] == 1):?>
+                    <img src="images/alipay.png">
+                    <?php else:?>
+                    <img src="images/weixin.png">
+
+                    <?php endif;?>
+
+                    </span>
                 </div>
                
             </div>
@@ -93,9 +101,10 @@ $info = $_POST;
                 <input type="hidden" name="invoice" value="<?php echo $info['invoice'];?>">
                 <input type="hidden" name="uremark" value="<?php echo $info['uremark'];?>">
                 <input type="hidden" name="paytype" value="<?php echo $info['paytype'];?>">
+                <input type="hidden" name="code" value="<?php echo $info['code'];?>">
                 
                 <input type="button" value="确认支付" class="btn-red mr5">
-                <input type="button" value="修改订单" class="btn-grey" onclick="window.location.href='index.html'">
+                <input type="button" value="修改订单" class="btn-grey" onclick="window.location.href='buy.html'">
             </div>
             </form>
        

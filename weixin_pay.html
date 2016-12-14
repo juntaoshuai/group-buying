@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>微信支付</title>
+    <link rel="stylesheet" type="text/css" href="css/pay.css" />
+    <script type="text/javascript" src="http://images.ofweek.com/js/home/jquery.js"></script>
+</head>
+
+<body>
+    <div class="header pngFix">
+        <h1 class="pay_logo">
+          <a href="/" class="index_access">
+             <img class="pngFix" src="images/logo_pay.png" alt="微信支付标志" title="微信支付">
+           </a>
+        </h1>
+    </div>
+    <div class="content">
+        <div class="wrapper mail_box">
+            <div class="mail_box_inner pngFix">
+                <div class="area primary">
+                    <div class="pay_msg" id="payMsg">
+                        <div class="area_bd" id="qr_normal">
+                            <span class="qr_img_wrapper"><img class="qrcode" alt="二维码" id="QRcode" src="images/getpayqrcode.jpg" /><img class="guide pngFix" src="images/webpay_guide.png" alt="" id="guide" /></span>
+                            <div class="msg_default_box qr_default ">
+                                <i class="icon60_qr pngFix"></i>
+                                <p>请使用微信扫描
+                                    <br/>二维码以完成支付</p>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="area second">
+                    <div class="pay_bill shopping">
+                        <div class="area_hd">
+                            <h2>支付清单</h2>
+                            <span class="icon_wrapper"><i class="icon60_pay pngFix"></i></span>
+                        </div>
+                        <div class="area_bd">
+                            <h3 class="pay_money"> <span>￥</span>45.80</h3>
+                            <div class="pay_bill_unit">
+                                <dl>
+                                    <dt class="mb20">智慧生活网团购产品</dt>
+                                </dl>
+                                <div class="pay_bill_info">
+                                    <p>
+                                        <label>交易单号</label><span class="pay_bill_value">1217409901201610200733312701</span></p>
+                                    <p>
+                                        <label>创建时间</label><span class="pay_bill_value">2016-10-20</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aside">
+                    <div class="pay_widget help">
+                        <div class="pay_widget_hd">
+                            <i class="icon30_add_on pngFix"></i>
+                        </div>
+                        <div class="pay_widget_bd">
+                            <strong class="widget_name">客服</strong>
+                            <p class="widget_desc">0755-83279360，分机823</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <b class="mail_box_corner left pngFix"></b>
+            <b class="mail_box_corner right pngFix"></b>
+        </div>
+    </div>
+<script type="text/javascript">
+        function init() {
+        // add by xusheng on 04/26
+        var _nTimer = 0,
+            _oGuide$ = $("#guide"),
+            _oGuideTrigger$ = $("#QRcode");
+
+        function _back() {
+            _nTimer = setTimeout(function() {
+                _oGuide$.stop().animate({marginLeft:"-101px",opacity:0}, "400", "swing",function(){
+                    _oGuide$.hide();
+                });
+            }, 100);
+        }
+
+        /*guide*/
+        _oGuide$.css({"left":"50%", "opacity":0});
+        _oGuideTrigger$.mouseover(function(){
+            clearTimeout(_nTimer);
+            _oGuide$.css("display", "block").stop().animate({marginLeft:"+147px", opacity:1}, 900, "swing", function() {
+                _oGuide$.animate({marginLeft:"+134px"}, 300);
+            });
+        }).mouseout(_back);
+
+        _oGuide$.mouseover(function(){
+            clearTimeout(_nTimer);
+        }).mouseout(_back);
+    }
+
+    init();
+</script>
+  <!--   <div class="footer">
+  <p class="linklist">
+    <a href="http://www.tencent.com/zh-cn/index.shtml">关于腾讯</a>
+    <a href="http://weixin.qq.com/cgi-bin/readtemplate?uin=&stype=&promote=&fr=&lang=zh_CN&ADTAG=&check=false&nav=faq&t=weixin_agreement&s=default">服务条款</a>
+    <a href="http://kf.qq.com/product/weixin.html">反馈建议</a>
+  </p>
+  <p class="copyright">&copy; 1998 - 2014 Tencent Inc. All reserved.</p>
+</div> -->
+</body>
+
+</html>

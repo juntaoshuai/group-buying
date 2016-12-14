@@ -685,7 +685,7 @@ body{font-family: simsun;color:#666;font-size: 12px;background: #fff;}
     background: #eee;
 }
 
-.nopass{color:#e4393c;margin-left: 10px;float: left;}
+.nopass,.codemsg{color:#e4393c;margin-left: 10px;float: left;}
 .invoice .nopass{line-height: 30px;}
 
 /*订单查询*/

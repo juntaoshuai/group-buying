@@ -18,6 +18,90 @@ $(function() {
         $("input[name=paytype]").val($(this).data("type"));
     });
 
+    //选择型号和规格后，价格变化 
+     $("#main").on('click', ".choose-wrap .item", function() {
+            if ($(".choose-wrap .item.selected").length == 2) {
+                var vid = $(".choose-version .item.selected").data("id"),
+                    sid = $(".choose-spec .item.selected").data("id");
+                $.getJSON("js/data.json", function(data) {
+                    $.each(data.lists, function(i) {
+                        if (data.lists[i].proid == 1) {
+                            $.each(data.lists[i].price, function() {
+                                if (this.id == vid + "-" + sid) {
+                                    $("#price").html(this.val)
+                                }
+                            });
+
+                        }
+                    });
+                })
+
+            }
+        });
+
+ //数量操作
+    ;(function() {
+        var minNum = 1,
+            maxNum = 999;
+        $("#main").on('change', '#buy-num', function() {
+            var $this = $(this),
+                $val = $(this).val();
+            if (isNaN($val)) {
+                $(this).val(1);
+                return false;
+            } else {
+                $(this).val(Math.floor($val));
+            }
+            if ($val != 1) {
+                $(".btn-reduce").removeClass("disabled");
+            }
+            if ($val == 1) {
+                $(".btn-reduce").addClass("disabled");
+
+            }
+            if ($val < 1) {
+                $(this).val(1);
+
+            }
+        });
+
+        $("#main").on('click', '.btn-add', function() {
+            $(this).prev().prev().addClass("active");
+
+            var $input = $("#buy-num"),
+                cur = $input.val();
+            cur++;
+            if (cur > 1) {
+                $(".btn-reduce").removeClass("disabled");
+            }
+            if (cur == maxNum) {
+                $(this).addClass("disabled");
+            }
+            if (cur > maxNum) {
+                return;
+            }
+            $input.val(cur);
+
+        });
+
+
+        $("#main").on('click', '.btn-reduce', function() {
+            var $input = $("#buy-num"),
+                cur = $input.val();
+            if (cur == 1) {
+                return;
+            }
+            cur--;
+            $input.val(cur);
+            if (cur == 1) {
+                $(this).addClass("disabled");
+            }
+            if (cur != maxNum) {
+                $(".btn-add").removeClass("disabled");
+
+            }
+        });
+    })();
     //验证不通过
     function noPass(msg, obj) {
         var $msg = $('<span class="nopass"></span>');
@@ -27,6 +111,12 @@ $(function() {
     //验证通过
     function pass(obj) {
         $(obj).removeClass("error").siblings(".nopass").remove();
+
+    }   
+    function pass_msg(msg,obj) {
+        var $msg = $('<span class="pass ml10"></span>');
+        $(obj).removeClass("error").siblings(".nopass").remove();
+        $msg.html(msg).appendTo($(obj).closest("div"));
 
     }
 
@@ -124,12 +214,19 @@ $(function() {
 
                     }
                 }
-                if (name == "validate_code") {
+                if (name == "code") {
                     if (checkEmpty($this)) {
                         noPass("请输入收到的短信验证码", $this);
                     } else {
-                        remoteCheck($this, "js/data.txt", "验证码错误");
-
+                        var data={mobile:$("#mobile").val(),code:$("#code").val()}
+                        $.post("/index.php?m=order&c=index&a=ajax_checksmscode",data, function(data) {
+                        if(data.code==1){
+                            pass_msg(data.msg,$this);
+                        }else{
+                            noPass(data.msg, $this);
+                        }
+                 
+                    });
                     }
                 }
                 if (name == "invoice_tt") {
@@ -164,24 +261,18 @@ $(function() {
 
                 }, 1000);
 
-                $.post("js/data.txt", { mobile: $("#mobile").val() }, function(data) {
+                $.getJSON("/index.php?m=order&c=index&a=ajax_sendsms", { mobile: $("#mobile").val() }, function(data) {
                     $(".codemsg").remove();
                     $this.siblings(".nopass,.pass").remove();
-                    if (data == 0) {
-                        $("<p class='codemsg red'>验证码发送失败!</p>").insertAfter($this);
-                        $("#validate_code").addClass("error");
 
+                    if(data.code==-9){
+                        $("<p class='codemsg red'>"+data.msg+"</p>").insertAfter($this);
+                        $("#code").addClass("error");
+                    }else{
+                        $("<p class='codemsg red'>"+data.msg+"</p>").insertAfter($this);
+                        $("#code").removeClass("error");
                     }
-                    if (data == 1) {
-                        $("<p class='codemsg red'>短信已发送</p>").insertAfter($this);
-                        $("#validate_code").removeClass("error");
-
-                    }
-                    if (data == 2) {
-                        $("<p class='codemsg red'>今日发送已达上限</p>").insertAfter($this);
-                        $("#validate_code").addClass("error");
-
-                    }
+                 
                 });
 
             });
@@ -216,6 +307,7 @@ $(function() {
                 }
             });
         },
+        //查询订单的的弹窗页面
         queryOrderForm: function() {
             $("#queryOrderForm .txt").blur(function() {
                 $this = $(this);
@@ -223,16 +315,20 @@ $(function() {
                 if (checkEmpty($this) || !RegCheck($this, RegConfig.mobile)) {
                     $("p.red").remove();
                     $("<p class='red lh24'>请输正确的11位手机号码</p>").insertAfter($this.closest("p"));
+                    $this.addClass("error");
                 } else {
-                    $.post("js/data.txt", { mobile: $this.val() }, function(data) {
-                        if (data == 0) {
+                    $.post('/index.php?m=order&c=index&a=ajax_search_order',{mobile:$this.val()},function(data){
+                        if(data.data.length==0){
                             $("p.red").remove();
                             $("<p class='red lh24'>未使用过此手机号快捷下单，暂无订单</p>").insertAfter($this.closest("p"));
-                        } else {
+                            $this.addClass("error");
+                        }else{
                             $("p.red").remove();
+                            $this.removeClass("error");
                         }
                     });
 
+                    
                 }
             });
             $(".query-btn").click(function() {
@@ -241,6 +337,11 @@ $(function() {
                     return false;
                 } else {
                     //ajax提交,跳到订单查询详情页面
+                    var mobile=$("input[name=mobile]").val();
+                    window.opener = null;
+                    window.open("query_detail.html?mobile="+mobile, "_blank");
+                    window.close();
+                    
                 }
 
             });
@@ -252,121 +353,45 @@ $(function() {
     valiate.buyForm();
     valiate.queryOrderForm();
 
-    //数量操作
-    (function() {
-        var minNum = 1,
-            maxNum = 999;
-        $("#main").on('change', '#buy-num', function() {
-            var $this = $(this),
-                $val = $(this).val();
-            if (isNaN($val)) {
-                $(this).val(1);
-                return false;
-            } else {
-                $(this).val(Math.floor($val));
-            }
-            if ($val != 1) {
-                $(".btn-reduce").removeClass("disabled");
-            }
-            if ($val == 1) {
-                $(".btn-reduce").addClass("disabled");
-
-            }
-            if ($val < 1) {
-                $(this).val(1);
-
-            }
-        });
-
-        $("#main").on('click', '.btn-add', function() {
-            $(this).prev().prev().addClass("active");
-
-            var $input = $("#buy-num"),
-                cur = $input.val();
-            cur++;
-            if (cur > 1) {
-                $(".btn-reduce").removeClass("disabled");
-            }
-            if (cur == maxNum) {
-                $(this).addClass("disabled");
-            }
-            if (cur > maxNum) {
-                return;
-            }
-            $input.val(cur);
-
-        });
-
-
-        $("#main").on('click', '.btn-reduce', function() {
-            var $input = $("#buy-num"),
-                cur = $input.val();
-            if (cur == 1) {
-                return;
-            }
-            cur--;
-            $input.val(cur);
-            if (cur == 1) {
-                $(this).addClass("disabled");
-            }
-            if (cur != maxNum) {
-                $(".btn-add").removeClass("disabled");
-
-            }
-        });
-    })();
-
-    $("#main").on('click', ".choose-wrap .item", function() {
-            if ($(".choose-wrap .item.selected").length == 2) {
-                var vid = $(".choose-version .item.selected").data("id"),
-                    sid = $(".choose-spec .item.selected").data("id");
-                $.getJSON("js/data.json", function(data) {
-                    $.each(data.lists, function(i) {
-                        if (data.lists[i].proid == 1) {
-                            $.each(data.lists[i].price, function() {
-                                if (this.id == vid + "-" + sid) {
-                                    $("#price").html(this.val)
-                                }
-                            });
-
-                        }
-                    });
-                })
-
-            }
-        })
-        //订单提交
+    //订单提交
     $("#orderForm .btn-red").click(function() {
         var data = $("#orderForm").serialize();
         $.ajax({
-            url: "http://dev.smartlifein.com/index.php?m=order&c=index&a=ajax_order",
-            // type:'POST',
+            url: "/index.php?m=order&c=index&a=ajax_order",
+            type:'POST',
             data: data,
+            dataType:"json",
             success: function(data) {
+                if(data.code<0){
+                    alert(data.msg);
+                }
 
             }
         });
     });
-    //查询订单弹窗
-    $("#order-query").click(function() {
-        //获得窗口的垂直位置 
-        var iTop = ($(window).height() - 316) / 2;
-        //获得窗口的水平位置 
-        var iLeft = ($(window).width() - 543) / 2;
-        window.open('query_order.html', 'newwindow', 'width=530,height=280,left=' + iLeft + ',top=' + iTop + ',toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no');
-    });
-    //订单查询提交
-    $(".query-btn").click(function() {
-        var mobile=$("input[name=mobile]").val();
-        window.opener = null;
-        window.open("query_detail.html?mobile="+mobile, "_blank");
-        window.close();
-        $.getJSON('js/data.json',function(data){
-            document.title=data.status;
+    
+    //右侧悬浮订单查询
+    (function(){
+        if($("#main").find(".wrapper").length){
+            $("body").append('<p id="order-query">订单查询</p>');
+        }
+        //查询订单弹窗
+        $("#order-query").click(function() {
+            //获得窗口的垂直位置 
+            var iTop = ($(window).height() - 316) / 2;
+            //获得窗口的水平位置 
+            var iLeft = ($(window).width() - 543) / 2;
+            window.open('query_order.html', 'newwindow', 'width=530,height=280,left=' + iLeft + ',top=' + iTop + ',toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no');
         });
+        
+    })();
 
-
-
+    //查询详情
+    $("#main").find(".order-detail:not(:first-child)").hide();
+    $("#main").on("click",".order-name li",function(){
+        var index=$(this).index();
+        $(this).addClass("active").siblings().removeClass("active");
+        $(".order-detail").hide().eq(index).show();
     });
 
 
